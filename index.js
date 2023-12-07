@@ -1,16 +1,15 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
-const connectDB = require('./config/connectDB')
+const connectDB = require('./config/connectDB');
+const authRoute = require('./routes/auth/authRoute');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 
 
-app.get('/', (req, res )=>{
-    res.send("hello world");
-})
+app.use("/api", authRoute)
 
 
 
