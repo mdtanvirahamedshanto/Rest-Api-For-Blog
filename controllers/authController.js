@@ -1,8 +1,10 @@
 const User = require("../models/userModel");
+const bcrypt = require("bcrypt");
 
 exports.singup = async (req, res) => {
-  const { name, username, email, password, profile } = req.body;
   try {
+    req.body.password = await bcrypt.hash(req.body.password, 10);
+    const { name, username, email, password, profile } = req.body;
     const user = await User.create({
       name,
       username,
