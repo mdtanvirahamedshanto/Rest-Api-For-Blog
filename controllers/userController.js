@@ -1,4 +1,6 @@
 const User = require("../models/userModel");
+const jwt = require("jsonwebtoken");
+
 // Get User...
 exports.GetAllUser = async (req, res) => {
   try {
@@ -7,6 +9,32 @@ exports.GetAllUser = async (req, res) => {
   } catch (error) {
     res.status(401).json({
       massage: "Something Went Wrong! ",
+    });
+  }
+};
+
+// Update User...
+exports.UpdateUser = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      res.status(401).json({
+        massage: "Wrong user! ",
+      });
+    }
+    req.body.password = jwt.hash(req.body.password, 10);
+    //update user...
+    const updateuser = await User.findOneAndUpdate(userId, req.body, {
+      new: true,
+    });
+    res.status(201).json({
+      massage: "Update User Profile Succesfully! ",
+      updateuser,
+    });
+  } catch (error) {
+    res.status(401).json({
+      massage: "You can update only your account! ",
     });
   }
 };

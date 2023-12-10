@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 3000;
 //Router
-app.use("/api", authRoute);
+app.use("/user", authRoute);
 app.use("/user", userRoute);
 
 app.listen(PORT, () => {
