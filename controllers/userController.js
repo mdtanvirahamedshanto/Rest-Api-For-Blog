@@ -19,7 +19,7 @@ exports.UpdateUser = async (req, res) => {
   try {
     const user = await User.findById(userId);
     if (!user) {
-      res.status(401).json({
+      return res.status(401).json({
         massage: "Wrong user! ",
       });
     }
@@ -35,6 +35,28 @@ exports.UpdateUser = async (req, res) => {
   } catch (error) {
     res.status(401).json({
       massage: "You can update only your account! ",
+    });
+  }
+};
+
+// Delete User...
+exports.DeleteUser = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(401).json({
+        massage: "Wrong user! ",  
+      });
+    }
+    //delete user...
+    const deleteuser = await User.findByIdAndDelete(userId);
+    res.status(201).json({
+      massage: "User Delete Succesfully! ",
+    });
+  } catch (error) {
+    res.status(401).json({
+      massage: "You can delete only your account! ",
     });
   }
 };
