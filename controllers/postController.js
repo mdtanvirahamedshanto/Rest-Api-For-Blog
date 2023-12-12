@@ -98,7 +98,7 @@ exports.deletePost = async (req, res) => {
 exports.getPost = async (req, res) => {
   const postId = req.headers.params;
   try {
-    const post = await Post.findById(postId)
+    const post = await Post.findById(postId);
     res.status(200).json({
       post,
     });
