@@ -1,8 +1,8 @@
-const { post } = require("../controllers/postController");
+const { createPost } = require("../controllers/postController");
 const { authMiddleWare } = require("../middlewares/auth");
 
 const postRoute = require("express").Router();
 
-postRoute.post("/post", post)
+postRoute.post("/post", authMiddleWare, createPost)
 
 module.exports = postRoute;

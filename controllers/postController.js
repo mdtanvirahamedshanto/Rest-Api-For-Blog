@@ -1,5 +1,23 @@
-const postModel = require("../models/postModel");
+const Post = require("../models/postModel");
 
-exports.post = async (req, res) =>{
-    res.send("hello")
-}
+exports.createPost = async (req, res) => {
+  const { title, discription, username, catagory, photo } = req.body;
+  try {
+    const post = await Post.create({
+      title,
+      discription,
+      username,
+      catagory,
+      photo,
+    });
+    res.status(201).json({
+      massage: "Post Upload Successfully! ",
+      post,
+    });
+  } catch (error) {
+    res.status(401).json({
+      massage: "Something went wrong! ",
+    });
+    console.log(error);
+  }
+};
