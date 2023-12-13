@@ -1,21 +1,30 @@
 const Catagory = require("../models/catagoryModel");
 
-//    Create Post...
+//    Create Catagory...
 
 exports.createCatagory = async (req, res) => {
-  const { title, discription, username, catagory, photo } = req.body;
+  const { name } = req.body;
   try {
-    const post = await Post.create({
-      title,
-      discription,
-      username,
-      catagory,
-      photo,
+    const catagory = await Catagory.create({
+      name,
     });
     res.status(201).json({
-      massage: "Post Upload Successfully! ",
-      post,
+      massage: "Catagory Create Successfully! ",
+      catagory,
     });
+  } catch (error) {
+    res.status(401).json({
+      massage: "Something went wrong! ",
+    });
+  }
+};
+
+//    get all catagory
+
+exports.getAllCatagory = async (req, res) => {
+  try {
+    const catagory = await Catagory.find();
+    res.status(200).json(catagory);
   } catch (error) {
     res.status(401).json({
       massage: "Something went wrong! ",
